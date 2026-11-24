@@ -30,7 +30,27 @@
       </label>
 
       <label>Where it was found
-        <input name="location" value="<?= e($item['location']) ?>">
+        <select name="location">
+        <option value="">-- Choose a place --</option>
+        <?php
+        $places = [
+          'Common areas' => ['Canteen / Cafeteria', 'Main Library', 'Gymnasium', 'Admin Building / Office', 'Main Gate / Guard House'],
+          'College buildings' => ['College of Computing Studies (CCS)', 'College of Engineering', 'College of Nursing', 'College of Law', 'College of Liberal Arts', 'College of Science and Mathematics', 'College of Teacher Education', 'College of Architecture'],
+          'Other' => ['Campus grounds / walkways', 'Parking area', 'Other (not listed)'],
+        ];
+        $saved = (string)($item['location'] ?? '');
+        $known = array_merge(...array_values($places));
+        if ($saved !== '' && !in_array($saved, $known, true)): ?>
+          <option value="<?= e($saved) ?>" selected><?= e($saved) ?> (saved earlier)</option>
+        <?php endif;
+        foreach ($places as $group => $list): ?>
+          <optgroup label="<?= e($group) ?>">
+            <?php foreach ($list as $p): ?>
+              <option value="<?= e($p) ?>"<?= $p === $saved ? ' selected' : '' ?>><?= e($p) ?></option>
+            <?php endforeach; ?>
+          </optgroup>
+        <?php endforeach; ?>
+      </select>
       </label>
 
       <label>Notes

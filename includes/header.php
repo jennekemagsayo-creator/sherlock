@@ -9,7 +9,11 @@
 <body>
 
 <header class="nav">
-  <a class="logo" href="index.php">&#128269; Sherlock</a>
+  <a class="logo" href="index.php">
+    <img src="images/wmsu-logo.png" alt="WMSU" class="site-logo">
+    <img src="images/ccs-logo.jpeg" alt="CCS" class="site-logo">
+    <span>&#128269; Sherlock</span>
+  </a>
   <nav>
     <a href="index.php">Home</a>
     <a href="index.php#how">How It Works</a>

@@ -25,7 +25,23 @@
     </label>
 
     <label>Where was it found? <span class="hint">(admin only)</span>
-      <input name="location" value="<?= e($_POST['location'] ?? '') ?>">
+      <select name="location">
+      <option value="">-- Choose a place --</option>
+      <?php
+      $places = [
+        'Common areas' => ['Canteen / Cafeteria', 'Main Library', 'Gymnasium', 'Admin Building / Office', 'Main Gate / Guard House'],
+        'College buildings' => ['College of Computing Studies (CCS)', 'College of Engineering', 'College of Nursing', 'College of Law', 'College of Liberal Arts', 'College of Science and Mathematics', 'College of Teacher Education', 'College of Architecture'],
+        'Other' => ['Campus grounds / walkways', 'Parking area', 'Other (not listed)'],
+      ];
+      $chosen = $_POST['location'] ?? '';
+      foreach ($places as $group => $list): ?>
+        <optgroup label="<?= e($group) ?>">
+          <?php foreach ($list as $p): ?>
+            <option value="<?= e($p) ?>"<?= $p === $chosen ? ' selected' : '' ?>><?= e($p) ?></option>
+          <?php endforeach; ?>
+        </optgroup>
+      <?php endforeach; ?>
+    </select>
     </label>
 
     <label>Photo (optional, max 2 MB)
